@@ -23,7 +23,7 @@ export const getContactByIdController = async (req, res) => {
   const data = await getContactById(contactId);
 
   if (!data) {
-    return notFoudHandler(req, res);
+    next(createHttpError(404, "Contact not found"));
   }
 
   res.json({
@@ -48,14 +48,13 @@ export const patchContactByIdController = async (req, res, next) => {
 
   const result = await patchContactById(contactId, req.body);
 
-  if (!result || !result.value) {
-    next(createHttpError(404, "Contact not found"));
-    return;
+  if (!result) {
+    throw createHttpError(404, "Contact not found");
   }
 
   res.json({
     status: 200,
-    messasge: "Successfully patched a contact!",
+    message: "Successfully patched a contact!",
     data: result.value,
   });
 };
