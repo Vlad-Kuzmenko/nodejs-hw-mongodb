@@ -3,7 +3,7 @@ import cors from "cors";
 import pino from "pino-http";
 
 import contactsRouter from "./routers/contacts.js";
-import { notFoudHandler } from "./middlewares/notFoundHandler.js";
+import { notFoundHandler } from "./middlewares/notFoundHandler.js";
 import { errorHandler } from "./middlewares/errorHandler.js";
 
 export const setupServer = () => {
@@ -11,17 +11,10 @@ export const setupServer = () => {
 
   app.use(cors());
   app.use(express.json());
-  app.use(
-    pino({
-      transport: {
-        target: "pino-pretty",
-      },
-    }),
-  );
 
   app.use("/contacts", contactsRouter);
 
-  app.use(notFoudHandler);
+  app.use(notFoundHandler);
   app.use(errorHandler);
 
   const PORT = Number(process.env.PORT) || 3000;
