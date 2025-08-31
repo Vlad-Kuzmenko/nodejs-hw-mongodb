@@ -1,5 +1,4 @@
 import createHttpError from "http-errors";
-import { notFoudHandler } from "../middlewares/notFoundHandler.js";
 import {
   getContacts,
   getContactById,
@@ -7,13 +6,22 @@ import {
   patchContactById,
   deleteContactById,
 } from "../services/contacts.js";
+import { parsePaginationParams } from "../utils/parsePaginationParams.js";
+import { parseSortParams } from "../utils/parseSortParams.js";
+import { contactFields } from "../db/models/Contacts.js";
+import { parseContactFilter } from "../utils/parseContactFilter.js";
+import { notFoundHandler } from "../middlewares/notFoundHandler.js";
 
 export const getContactsController = async (req, res) => {
-  const data = await getContacts();
+  const { page, perPage } = parsePaginationParams(req.query);
+  const { sortBy, sortOrder } = parseSortParams(req.query, contactFields);
+  const filters = parseContactFilter(req.query);
+
+  const data = await getContacts({ page, perPage, sortBy, sortOrder, filters });
 
   res.json({
     status: 200,
-    message: "Successfully find contacts",
+    message: "Successfully found contacts",
     data,
   });
 };
@@ -23,7 +31,7 @@ export const getContactByIdController = async (req, res) => {
   const data = await getContactById(contactId);
 
   if (!data) {
-    next(createHttpError(404, "Contact not found"));
+    throw createHttpError(404, "Contact not found");
   }
 
   res.json({
@@ -48,13 +56,14 @@ export const patchContactByIdController = async (req, res, next) => {
 
   const result = await patchContactById(contactId, req.body);
 
-  if (!result) {
-    throw createHttpError(404, "Contact not found");
+  if (!result || !result.value) {
+    next(createHttpError(404, "Contact not found"));
+    return;
   }
 
   res.json({
     status: 200,
-    message: "Successfully patched a contact!",
+    messasge: "Successfully patched a contact!",
     data: result.value,
   });
 };
