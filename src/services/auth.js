@@ -39,19 +39,19 @@ export const loginUser = async ({ email, password }) => {
 
   await SessionCollection.deleteOne({ userId: user._id });
 
-  return await SessionCollection.create({
+  return SessionCollection.create({
     userId: user._id,
     ...createSession(),
   });
 };
 
-export const logoutUser = async (sessionId) => {
-  await SessionCollection.deleteOne({ _id: sessionId });
+export const logoutUser = async (userId) => {
+  await SessionCollection.deleteOne({ userId });
 };
 
 export const refreshUserSessoin = async ({ sessionId, refreshToken }) => {
   const session = await SessionCollection.findOne({
-    _id: sessionId,
+    userId: sessionId,
     refreshToken,
   });
 
@@ -66,7 +66,7 @@ export const refreshUserSessoin = async ({ sessionId, refreshToken }) => {
     throw createHttpError(401, "Session token expired");
   }
 
-  await SessionCollection.deleteOne({ _id: sessionId, refreshToken });
+  await SessionCollection.deleteOne({ userId: sessionId, refreshToken });
 
   return await SessionCollection.create({
     userId: session.userId,
