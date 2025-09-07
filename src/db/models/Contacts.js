@@ -3,6 +3,11 @@ import { typeList } from "../../constants/contact-constants.js";
 
 const contactsSchema = new Schema(
   {
+    userId: {
+      type: Schema.Types.ObjectId,
+      ref: "user",
+      required: true,
+    },
     name: {
       type: String,
       required: true,
