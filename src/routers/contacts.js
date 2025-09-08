@@ -1,4 +1,5 @@
 import { Router } from "express";
+
 import {
   getContactsController,
   getContactByIdController,
@@ -9,13 +10,18 @@ import {
 
 import { ctrlWrapper } from "../utils/ctrlWrapper.js";
 import { validateBody } from "../middlewares/validateBody.js";
+
 import {
   contactAddSchema,
   contactUpdateSchema,
 } from "../validation/contactSchema.js";
+
 import { isValidId } from "../middlewares/isValidId.js";
+import { authenticate } from "../middlewares/authenticate.js";
 
 const contactsRouter = Router();
+
+contactsRouter.use(authenticate);
 
 contactsRouter.get("/", ctrlWrapper(getContactsController));
 
