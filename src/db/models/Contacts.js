@@ -29,6 +29,9 @@ const contactsSchema = new Schema(
       enum: typeList,
       default: "personal",
     },
+    photo: {
+      type: String,
+    },
   },
   { versionKey: false, timestamps: true },
 );
