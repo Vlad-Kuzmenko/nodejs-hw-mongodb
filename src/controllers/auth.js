@@ -20,11 +20,16 @@ export const setupSession = (res, session) => {
 };
 
 export const registerController = async (req, res) => {
-  await registerUser(req.body);
+  const { email, password, name } = req.body;
+
+  const newUser = await registerUser({ email, password, name });
+
+  const { password: _, ...userData } = newUser.toObject();
 
   res.status(201).json({
     status: 201,
-    message: "Successfully registered user",
+    message: "Successfully registered a user!",
+    data: userData,
   });
 };
 
@@ -35,6 +40,7 @@ export const loginController = async (req, res) => {
 
   res.json({
     status: 200,
+    message: "Successfully logged in an user!",
     data: {
       accessToken: session.accessToken,
     },
