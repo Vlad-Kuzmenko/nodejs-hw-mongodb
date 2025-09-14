@@ -1,0 +1,46 @@
+tags:
+  - Auth
+summary: Register a new user
+operationId: registerUser
+description: "Create a new user account with email and password"
+security: []
+requestBody:
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - name
+          - email
+          - password
+        properties:
+          name:
+            type: string
+            example: "Ivan Butter"
+          email:
+            type: string
+            example: "Ivan352@example.com"
+          password:
+            type: string
+            example: "butter1_87"
+responses:
+  "201":
+    description: Successfully registered a user!
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 201
+            message:
+              type: string
+              example: "User successfully registered"
+            data:
+              type: object
+              $ref: ../../components/schemas/user.yaml
+  "400":
+    $ref: ../../components/responces/400.yaml
+  "409":
+    $ref: ../../components/responces/auth/register/409.yaml
