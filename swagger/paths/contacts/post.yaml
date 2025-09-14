@@ -60,5 +60,7 @@ responses:
             data:
               type: object
               $ref: ../../components/schemas/contact.yaml
+  "400":
+    description: Invalid request body (missing or invalid fields)
   "401":
     $ref: ../../components/responces/401.yaml
