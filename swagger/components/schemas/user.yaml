@@ -1,0 +1,18 @@
+type: object
+required:
+  - email
+  - name
+  - _id
+properties:
+  email:
+    description: "Contact's email"
+    type: string
+    example: Ivan352@example.com
+  name:
+    description: "Contact's name"
+    type: string
+    example: "Ivan Butter"
+  _id:
+    description: "Contact's id"
+    type: string
+    example: 68c6a690c02e31f37594bed0

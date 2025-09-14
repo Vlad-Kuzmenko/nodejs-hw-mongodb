@@ -1,0 +1,35 @@
+tags:
+  - Auth
+summary: Refresh authentication token
+operationId: refreshToken
+description: "Refresh the user's authentication token using the refresh token"
+security: []
+parameters:
+  - name: Cookie
+    in: header
+    description: "Cookies containing refreshToken and sessionId"
+    required: true
+    schema:
+      type: string
+      example: "refreshToken=your-refresh-tiken; sessionId=your-session-id"
+responses:
+  "200":
+    description: Successfully refreshed token
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: "Successfully refreshed a session!"
+            accesToken:
+              type: string
+              example: "8/eVmQzdBPR/qYnDKZ4TIiqb0e1de5ViGpLCgIel"
+  "401":
+    $ref: ../../components/responces/auth/refresh/401.yaml
+  "404":
+    $ref: ../../components/responces/auth/refresh/404.yaml
