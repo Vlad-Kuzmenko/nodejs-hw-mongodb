@@ -33,6 +33,8 @@ responses:
             data:
               type: object
               $ref: ../../../components/schemas/contact.yaml
+  "400":
+    description: Invalid contactId format
   "401":
     $ref: ../../../components/responces/401.yaml
   "404":
