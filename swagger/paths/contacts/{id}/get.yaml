@@ -35,6 +35,27 @@ responses:
               $ref: ../../../components/schemas/contact.yaml
   "400":
     description: Invalid contactId format
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 400
+            message:
+              type: string
+              example: ValidationError
+            data:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: '"contactId" is not valid id'
   "401":
     $ref: ../../../components/responces/401.yaml
   "404":

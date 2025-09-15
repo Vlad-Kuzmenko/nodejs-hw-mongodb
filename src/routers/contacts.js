@@ -43,8 +43,8 @@ contactsRouter.post(
 
 contactsRouter.patch(
   "/:contactId",
-  checkContactExists,
   isValidId,
+  checkContactExists,
   upload.single("photo"),
   validateBody(contactUpdateSchema),
   ctrlWrapper(patchContactByIdController),

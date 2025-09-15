@@ -61,6 +61,31 @@ responses:
               type: object
               $ref: ../../components/schemas/contact.yaml
   "400":
-    description: Invalid request body (missing or invalid fields)
+    description: Invalid request body
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 400
+            message:
+              type: string
+              example: ValidationError
+            data:
+              type: object
+              properties:
+                message:
+                  type: string
+                  examples:
+                    - '"name" is required'
+                    - '"phoneNumber" with value "123" fails to match the required pattern: /^\\+\\d{12}$/'
+                    - '"contactType" must be one of [work, home, personal]'
+
   "401":
     $ref: ../../components/responces/401.yaml
