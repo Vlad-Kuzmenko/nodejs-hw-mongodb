@@ -165,9 +165,6 @@
               }
             }
           },
-          "400": {
-            "description": "Invalid contactId format"
-          },
           "401": {
             "$ref": "#/components/responses/401"
           }
