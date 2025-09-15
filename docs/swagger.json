@@ -165,6 +165,9 @@
               }
             }
           },
+          "400": {
+            "description": "Invalid contactId format"
+          },
           "401": {
             "$ref": "#/components/responses/401"
           }
@@ -262,6 +265,44 @@
               }
             }
           },
+          "400": {
+            "description": "Invalid request body",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 400
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "ValidationError"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "examples": [
+                            "\"name\" is required",
+                            "\"phoneNumber\" with value \"123\" fails to match the required pattern: /^\\\\+\\\\d{12}$/",
+                            "\"contactType\" must be one of [work, home, personal]"
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
           "401": {
             "$ref": "#/components/responses/401"
           }
@@ -316,6 +357,40 @@
                     "data": {
                       "type": "object",
                       "$ref": "#/components/schemas/contact"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid contactId format",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 400
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "ValidationError"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "\"contactId\" is not valid id"
+                        }
+                      }
                     }
                   }
                 }
@@ -428,6 +503,44 @@
               }
             }
           },
+          "400": {
+            "description": "Invalid contactId format or invalid request body",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 400
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "ValidationError"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "examples": [
+                            "\"contactId\" is not valid id",
+                            "\"phoneNumber\" with value \"123\" fails to match the required pattern: /^\\\\+\\\\d{12}$/",
+                            "\"contactType\" must be one of [work, home, personal]"
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
           "401": {
             "$ref": "#/components/responses/401"
           },
@@ -462,6 +575,40 @@
         "responses": {
           "204": {
             "description": "Successfully deleted contact"
+          },
+          "400": {
+            "description": "Invalid contactId format",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 400
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "ValidationError"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "\"contactId\" is not valid id"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
           },
           "401": {
             "$ref": "#/components/responses/401"
@@ -594,6 +741,43 @@
                     "accesToken": {
                       "type": "string",
                       "example": "8/eVmQzdBPR/qYnDKZ4TIiqb0e1de5ViGpLCgIel"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request body",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 400
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "ValidationError"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "examples": [
+                            "\"email\" must be a valid email",
+                            "\"password\" length must be at least 6 characters long"
+                          ]
+                        }
+                      }
                     }
                   }
                 }
