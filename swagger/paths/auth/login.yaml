@@ -36,5 +36,30 @@ responses:
             accesToken:
               type: string
               example: "8/eVmQzdBPR/qYnDKZ4TIiqb0e1de5ViGpLCgIel"
+  "400":
+    description: Invalid request body
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 400
+            message:
+              type: string
+              example: ValidationError
+            data:
+              type: object
+              properties:
+                message:
+                  type: string
+                  examples:
+                    - '"email" must be a valid email'
+                    - '"password" length must be at least 6 characters long'
   "401":
     $ref: ../../components/responces/auth/login/401.yaml
